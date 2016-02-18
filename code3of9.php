@@ -146,6 +146,8 @@ Refer: <?= $encoding[4] . ' ' . $encoding[2] . ' N 1 0 0 1 0 0 2' . PHP_EOL ?>
 EndChar
 <?php
 }
+
+/*
 ?>
 
 StartChar: .notdef
@@ -171,6 +173,10 @@ Width: <?= W . PHP_EOL ?>
 Flags: W
 LayerCount: 2
 EndChar
+
+<?php
+*/
+?>
 
 EndChars
 EndSplineFont
