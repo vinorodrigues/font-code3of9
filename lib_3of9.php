@@ -127,7 +127,7 @@ LayerCount: 2
 Fore
 SplineSet
 <?php
-	$y = ($key < 44) ? (($xx*9)+$yy) : 0;
+	$y = ($key < 44) ? $yy : 0;
 	for ($j = 0; $j < 9; $j++) {
 		$val = substr($encoding[1], $j, 1);
 		$len = ($val == 'w' ? ($xx * 3) : $xx);

@@ -91,11 +91,10 @@ EndChar
 foreach ($encoding_table as $key => $encoding) {
 	$count++;
 	$encoding_table[$key][4] = $count;  // used later in refer table
-	$y = -(X * 2);
-	render_bars($key, $encoding, X, $y, W, H, $count);
+	render_bars($key, $encoding, X, (X * 7), W, H, $count);
 	if ($key < 44) {
 		$fnt = $font_cp437[$encoding[2]];
-		render_8x8($fnt, X, $y);
+		render_8x8($fnt, X, -(X * 2));
 	}
 	render_end();
 }
