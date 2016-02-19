@@ -1,5 +1,7 @@
 <?php
 
+global $encoding_table, $refer_table;
+
 $encoding_table = array(
 	0 => array('0', 'nnnwwnwnn', 48, 'zero'),
 	1 => array('1', 'wnnwnnnnw', 49, 'one'),
@@ -76,15 +78,35 @@ $refer_table = array(
 	array('x', 120, 33),
 	array('y', 121, 34),
 	array('z', 122, 35),
+
 	array('bracketright', 91, 44),
 	array('bracketleft', 93, 45),
 	array('braceleft', 123, 44),
 	array('braceright', 125, 45),
+	array('less', 60, 44),
+	array('greater', 62, 45),
+	array('backslash', 92, 40),
+
+	array('exclam', 33, -1),
+	array('quotedbl', 34, -1),
+	array('numbersign', 35, -1),
+	array('ampersand', 38, -1),
+	array('quotesingle', 39, -1),
+	array('comma', 44, -1),
+	array('colon', 58, -1),
+	array('semicolon', 59, -1),
+	array('equal', 61, -1),
+	array('question', 63, -1),
+	array('at', 64, -1),
+	array('asciicircum', 94, -1),
+	array('underscore', 95, -1),
+	array('grave', 96, -1),
+	array('bar', 124, -1),
+	array('asciitilde', 126, -1),
 );
 
 function headers() {
 	header('Content-type: text/plain');
-	// header('Content-Disposition: attachment; filename="alpha3of9.sfd"');
 	header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 	header('Cache-Control: post-check=0, pre-check=0', false);
 	header('Pragma: no-cache');
@@ -92,4 +114,51 @@ function headers() {
 	header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');
 }
 
+function render_bars($key, $encoding, $xx, $yy, $ww, $hh, $count) {
+
+	$offs = intval($xx / 2);
+	echo PHP_EOL;
 ?>
+StartChar: <?= $encoding[3] . PHP_EOL ?>
+Encoding: <?= $encoding[2] . ' ' . $encoding[2] . ' ' . $count . PHP_EOL ?>
+Width: <?= $ww . PHP_EOL ?>
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+<?php
+	$y = ($key < 44) ? (($xx*9)+$yy) : 0;
+	for ($j = 0; $j < 9; $j++) {
+		$val = substr($encoding[1], $j, 1);
+		$len = ($val == 'w' ? ($xx * 3) : $xx);
+		if ($j%2==false) {
+			echo $offs . ' ' . $hh . ' m 1' . PHP_EOL;
+			echo ' ' . ($offs+$len) . ' ' . $hh . ' l 1' . PHP_EOL;
+			echo ' ' . ($offs+$len) . ' ' . $y . ' l 1' .  PHP_EOL;
+			echo ' ' . $offs . ' ' . $y . ' l 1' . PHP_EOL;
+			echo ' ' . $offs . ' ' . $hh . ' l 1' . PHP_EOL;
+		}
+		$offs += $len + 1;
+	}
+}
+
+function render_end() {
+?>
+EndSplineSet
+EndChar
+<?php
+}
+
+function render_refer($refer, $encoding, $count) {
+	echo PHP_EOL;
+	?>
+StartChar: <?= $refer[0] . PHP_EOL ?>
+Encoding: <?= $refer[1] . ' ' . $refer[1] . ' ' . $count . PHP_EOL ?>
+Width: <?= W . PHP_EOL ?>
+Flags: W
+LayerCount: 2
+Fore
+Refer: <?= $encoding[4] . ' ' . $encoding[2] . ' N 1 0 0 1 0 0 2' . PHP_EOL ?>
+EndChar
+<?php
+}

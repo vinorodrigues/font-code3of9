@@ -4,8 +4,8 @@ include_once 'lib_3of9.php';
 include_once 'lib_8x8.php';
 
 define('X', 61);  // Narrow bar width, Wide bar is 3 times X btw.
-define('W', X*16);  // Font width is 16 times the narrow bar width
-define('H', W*3);  // Font hight is 3 times its width
+define('W', (X*16)+10);  // Font width is 16 times the narrow bar width
+define('H', X*16*3);  // Font hight is 3 times its width
 
 $count = 1;
 
@@ -75,127 +75,39 @@ WinInfo: 0 17 12
 OnlyBitmaps: 1
 BeginPrivate: 0
 EndPrivate
-BeginChars: 256 <?= (3 + count($encoding_table) + count($refer_table)) . PHP_EOL ?>
-<?php
-foreach ($encoding_table as $key => $encoding) {
-	$count++;
-	$encoding_table[$key][4] = $count;  // used later in refer table
-	$offs = 0;
-	echo PHP_EOL;
-	?>
-StartChar: <?= $encoding[3] . PHP_EOL ?>
-Encoding: <?= $encoding[2] . ' ' . $encoding[2] . ' ' . $count . PHP_EOL ?>
-Width: <?php
-	if (isset($encoding[5])) {
-		switch ($encoding[5]) {
-			case 'r':
-				$offs += (X * 10);
-				echo W + (X * 11) . PHP_EOL;
-				break;
-			case 'l':
-				echo W + (X * 10) . PHP_EOL;
-				break;
-		}
-	} else
-		echo W . PHP_EOL;
-?>
+BeginChars: 256 <?= (1 + count($encoding_table) + count($refer_table)) . PHP_EOL ?>
+
+StartChar: .notdef
+Encoding: 0 0 0
+Width: <?= W . PHP_EOL ?>
 Flags: W
 LayerCount: 2
 Fore
 SplineSet
-<?php
-	for ($j = 0; $j < 9; $j++) {
-		$val = substr($encoding[1], $j, 1);
-		$len = ($val == 'w' ? (X * 3) - 1 : X);
-		if ($j%2==false) {
-			$y = ($key < 44) ? X*9 : 0;
-			echo $offs . ' ' . H . ' m 1' . PHP_EOL;
-			echo ' ' . ($offs+$len) . ' ' . H . ' l 1' . PHP_EOL;
-			echo ' ' . ($offs+$len) . ' ' . $y . ' l 1' .  PHP_EOL;
-			echo ' ' . $offs . ' ' . $y . ' l 1' . PHP_EOL;
-			echo ' ' . $offs . ' ' . H . ' l 1' . PHP_EOL;
-		}
-		$offs += $len + 1;
-	}
-
-	if ($key < 44) {
-		$fnt = $font_cp437[$encoding[2]];
-		for ($j = 0; $j < 8; $j++) {
-			$off2 = (X*4);
-			$ji = abs($j-7);
-			for ($k = 0; $k < 8; $k++) {
-				if ((($fnt[$k]) & pow(2,$j)) > 0) {
-					echo $off2 . ' ' . ($ji*X) . ' m 1' . PHP_EOL;
-					echo ' ' . ($off2+X-1) . ' ' . ($ji*X) . ' l 1' . PHP_EOL;
-					echo ' ' . ($off2+X-1) . ' ' . (($ji*X)+X-1) . ' l 1' . PHP_EOL;
-					echo ' ' . $off2 . ' ' . (($ji*X)+X-1) . ' l 1' . PHP_EOL;
-					echo ' ' . $off2 . ' ' . ($ji*X) . ' l 1' . PHP_EOL;
-				}
-				$off2 += X;
-			}
-		}
-	}
-?>
 EndSplineSet
 EndChar
 <?php
+
+foreach ($encoding_table as $key => $encoding) {
+	$count++;
+	$encoding_table[$key][4] = $count;  // used later in refer table
+	$y = -(X * 2);
+	render_bars($key, $encoding, X, $y, W, H, $count);
+	if ($key < 44) {
+		$fnt = $font_cp437[$encoding[2]];
+		render_8x8($fnt, X, $y);
+	}
+	render_end();
 }
 
 foreach ($refer_table as $refer) {
 	$count++;
-	$encoding = $encoding_table[$refer[2]];
-	echo PHP_EOL;
-	?>
-StartChar: <?= $refer[0] . PHP_EOL ?>
-Encoding: <?= $refer[1] . ' ' . $refer[1] . ' ' . $count . PHP_EOL ?>
-Width: <?php
-	if (isset($encoding[5])) {
-		switch ($encoding[5]) {
-			case 'r':
-				echo W + (X * 11) . PHP_EOL; break;
-			case 'l':
-				echo W + (X * 10) . PHP_EOL; break;
-		}
-	} else
-		echo W . PHP_EOL;
-?>
-Flags: W
-LayerCount: 2
-Fore
-Refer: <?= $encoding[4] . ' ' . $encoding[2] . ' N 1 0 0 1 0 0 2' . PHP_EOL ?>
-EndChar
-<?php
+	if ($refer[2] >= 0) $encoding = $encoding_table[$refer[2]];
+	else $encoding = array(-1, -1, 0, '', 0);
+
+	render_refer($refer, $encoding, $count);
 }
 
-/*
-?>
-
-StartChar: .notdef
-Encoding: 65536 -1 <?= $count+1 . PHP_EOL ?>
-Width: <?= W . PHP_EOL ?>
-Flags: W
-LayerCount: 2
-Fore
-SplineSet
-EndSplineSet
-EndChar
-
-StartChar: NULL
-Encoding: 65537 -1 <?= $count+2 . PHP_EOL ?>
-Width: 0
-Flags: W
-LayerCount: 2
-EndChar
-
-StartChar: CR
-Encoding: 65538 -1 <?= $count+3 . PHP_EOL ?>
-Width: <?= W . PHP_EOL ?>
-Flags: W
-LayerCount: 2
-EndChar
-
-<?php
-*/
 ?>
 
 EndChars
