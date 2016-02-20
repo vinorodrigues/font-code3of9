@@ -79,6 +79,7 @@ $refer_table = array(
 	array('y', 121, 34),
 	array('z', 122, 35),
 
+	array('exclam', 33, 43),
 	array('bracketright', 91, 44),
 	array('bracketleft', 93, 45),
 	array('braceleft', 123, 44),
@@ -87,7 +88,6 @@ $refer_table = array(
 	array('greater', 62, 45),
 	array('backslash', 92, 40),
 
-	array('exclam', 33, -1),
 	array('quotedbl', 34, -1),
 	array('numbersign', 35, -1),
 	array('ampersand', 38, -1),

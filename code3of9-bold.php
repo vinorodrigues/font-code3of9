@@ -35,9 +35,7 @@ StyleMap: 0x0020
 FSType: 0
 OS2Version: 3
 OS2_WeightWidthSlopeOnly: 0
-OS2_UseTypoMetrics: 0
-CreationTime: 1455772945
-ModificationTime: 1455774072
+OS2_UseTypoMetrics: 1
 PfmFamily: 49
 TTFWeight: 700
 TTFWidth: 5
@@ -51,7 +49,7 @@ OS2TypoDOffset: 0
 OS2TypoLinegap: <?= X . PHP_EOL ?>
 OS2WinAscent: 2928
 OS2WinAOffset: 0
-OS2WinDescent: <?= X . PHP_EOL ?>
+OS2WinDescent: <?= (X*2) . PHP_EOL ?>
 OS2WinDOffset: 0
 HheadAscent: <?= H . PHP_EOL ?>
 HheadAOffset: 0
