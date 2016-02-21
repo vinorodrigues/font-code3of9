@@ -22,7 +22,7 @@ ItalicAngle: 0
 UnderlinePosition: <?= X . PHP_EOL ?>
 UnderlineWidth: <?= X . PHP_EOL ?>
 Ascent: <?= intval(X * 16) . PHP_EOL ?>
-Descent: <?= (X*2) . PHP_EOL ?>
+Descent: <?= (1000 - intval(X * 16)) . PHP_EOL ?>
 InvalidEm: 0
 sfntRevision: 0x00010000
 woffMajor: 1
