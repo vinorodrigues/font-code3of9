@@ -7,7 +7,7 @@ define('X', 61);  // Narrow bar width, Wide bar is 3 times X btw.
 define('W', (X*16)+10);  // Font width is 16 times the narrow bar width
 define('H', X*16*3);  // Font hight is 3 times its width
 
-$count = 1;
+$count = 2;
 
 headers();
 
@@ -21,8 +21,8 @@ Version: 001.000
 ItalicAngle: 0
 UnderlinePosition: <?= X . PHP_EOL ?>
 UnderlineWidth: <?= X . PHP_EOL ?>
-Ascent: 800
-Descent: 200
+Ascent: <?= intval(X * 16) . PHP_EOL ?>
+Descent: <?= (X*2) . PHP_EOL ?>
 InvalidEm: 0
 sfntRevision: 0x00010000
 woffMajor: 1
@@ -71,13 +71,40 @@ AntiAlias: 0
 FitToEm: 0
 WinInfo: 0 17 12
 OnlyBitmaps: 1
-BeginPrivate: 0
+BeginPrivate: 1
+BlueValues <?php $bv = '-' . (X*2) . ' -' . X . ' ' . H . ' ' . H . ' ' .  (X*6) . ' ' . (X*7);
+	echo (strlen($bv)+1) . ' [' . $bv . ']' . PHP_EOL; ?>
 EndPrivate
 BeginChars: 256 <?= (1 + count($encoding_table) + count($refer_table)) . PHP_EOL ?>
 
+<?php /*
+https://www.microsoft.com/typography/otspec/recom.htm
+*/ ?>
 StartChar: .notdef
-Encoding: 0 0 0
+Encoding: 65536 -1 0
 Width: <?= W . PHP_EOL ?>
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+<?php $fnt = $font_cp437[63];  render_8x8( $fnt, X, intval((H - X) / 2)-X ); ?>
+EndSplineSet
+EndChar
+
+StartChar: .null
+Encoding: 0 0 1
+Width: <?= W . PHP_EOL ?>
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+EndSplineSet
+EndChar
+
+StartChar: nonmarkingreturn
+Encoding: 13 13 2
+Width: 0
 Flags: W
 LayerCount: 2
 Fore
@@ -99,8 +126,8 @@ foreach ($encoding_table as $key => $encoding) {
 
 foreach ($refer_table as $refer) {
 	$count++;
-	if ($refer[2] >= 0) $encoding = $encoding_table[$refer[2]];
-	else $encoding = array(-1, -1, 0, '', 0);
+	if ($refer[2] < 0) $encoding = array(-1, -1, 95, '', abs($refer[2]));
+	else $encoding = $encoding_table[$refer[2]];
 
 	render_refer($refer, $encoding, $count);
 }

@@ -38,8 +38,6 @@ How to compile and generate
   `sudo atsutil databases -remove`
 
 
-
-
 How to use the fonts
 --------------------
 
@@ -100,6 +98,7 @@ This will remove the asterisk and apply the bold-ing.  You can either roll-back/
   * Apply the _Code 3 of 9_ font only to the encodable characters, not the whole line.
   You will see when highlighting the text that it will highlight beyond the text.  You will need to manually bring back the highlight by one character before applying the font selection.
 
+
 Finally
 -------
 
@@ -107,5 +106,6 @@ Finally
 
 * If you do adapt _(and wish to contribute to the original project)_ or see changes you would like done, then can contact the author at:
   <http://vinorodrigues.com>
+
 
 ---

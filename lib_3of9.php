@@ -103,6 +103,11 @@ $refer_table = array(
 	array('grave', 96, -1),
 	array('bar', 124, -1),
 	array('asciitilde', 126, -1),
+
+	array('backspace', 8, -1),
+	array('tab', 9, -1),
+	array('GS', 29, -1),
+	array('NBSP', 160, -1),
 );
 
 function headers() {
