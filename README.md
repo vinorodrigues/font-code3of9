@@ -81,15 +81,17 @@ You can use any of the non-Code 39 characters, for example the `_` _(underscore)
 
   Therefore lower case alphabet symbols will encode as their uppercase counterparts.
 
-Common problems
----------------
 
-* In some text editors (like Word and Pages), if you type `*`'s around text the editor will assume to bold the text.
+Common problems & known issues
+------------------------------
+
+* In text editors (like Word and Pages), if you type `*`'s around text the editor will assume to bold the text.
 This will remove the asterisk and apply the bold-ing.  You can either roll-back/undo to revert the auto-bold, or use the `!` _(exclamation)_ character instead of the `*`.  e.i.:
 
   `!1234!`
 
-* Also, these editors will apply a _"soft space"_ at the end of each line. The bar code will thus render as:
+* Also, these editors will apply a _"soft space"_ at the end of each line.
+
   ![Soft Space problem](./doc/softsp.png)
 
   This happens because those editors apply a "virtual" space character to signify a End Of Line.
@@ -99,10 +101,19 @@ This will remove the asterisk and apply the bold-ing.  You can either roll-back/
   You will see when highlighting the text that it will highlight beyond the text.  You will need to manually bring back the highlight by one character before applying the font selection.
 
 
+* In spreadsheet applications (like Excel and Numbers) the font will render with a _blank_ gap below.
+
+  ![Excel problem](./doc/xlsgap.png)
+
+  Not sure why this happens or how to fix it, but here is the observed behavior.  The font is designed so the the hight of the bars are rendered way beyond the ascender font metric - lets call this metric _"overflow"_.  When this font is selected, the cell adjusts it's height metric by adding an extra top spacing to account for the overflow... the problem is that it also adds a bottom spacing.
+
+  _PS:_ Font experts out there... any suggestions?
+
+
 Finally
 -------
 
-* Licensed with the MIT License, so this font is free, as in _'libre'_.  So you have the freedom to use for any purpose as well as to study, change, and distribute and adapt, without attribution.
+* Licensed with the MIT License, so this font is free (as in _'libre'_).  So you have the freedom to use for any purpose as well as to study, change, and distribute and adapt, without attribution.
 
 * If you do adapt _(and wish to contribute to the original project)_ or see changes you would like done, then can contact the author at:
   <http://vinorodrigues.com>
