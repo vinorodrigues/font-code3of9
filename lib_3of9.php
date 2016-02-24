@@ -132,7 +132,8 @@ LayerCount: 2
 Fore
 SplineSet
 <?php
-	$y = (($key < 44) && ($key != 38)) ? $yy : 0;
+	if ($key == 38) $y = intval($yy / 2);
+	else $y = ($key < 44) ? $yy : 0;
 	for ($j = 0; $j < 9; $j++) {
 		$val = substr($encoding[1], $j, 1);
 		$len = ($val == 'w' ? ($xx * 3) : $xx);
