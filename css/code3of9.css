@@ -1,0 +1,76 @@
+/* ----- Code 3 of 9 Font ----- */
+
+@font-face {
+	font-family: 'Code3of9';
+	src: url('../font/code3of9.eot');
+	src: url('../font/code3of9.eot'),
+		url('../font/code3of9.woff') format('woff'),
+        	url('../font/code3of9.ttf') format('truetype'),
+        	url('../font/code3of9.svg#code_3_of_9regular') format('svg');
+}
+
+@font-face {
+	font-family: 'Code3of9';
+	src: url('../font/code3of9-bold.eot');
+	src: url('../font/code3of9-bold.eot'),
+		url('../font/code3of9-bold.woff') format('woff'),
+        	url('../font/code3of9-bold.ttf') format('truetype'),
+        	url('../font/code3of9-bold.svg#code_3_of_9bold') format('svg');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'Code3of9';
+	src: url('../font/code3of9.eot');
+	src: url('../font/code3of9.eot'),
+		url('../font/code3of9.woff') format('woff'),
+        	url('../font/code3of9.ttf') format('truetype'),
+        	url('../font/code3of9.svg#code_3_of_9regular') format('svg');
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Code3of9';
+	src: url('../font/code3of9-bold.eot');
+	src: url('../font/code3of9-bold.eot'),
+		url('../font/code3of9-bold.woff') format('woff'),
+        	url('../font/code3of9-bold.ttf') format('truetype'),
+        	url('../font/code3of9-bold.svg#code_3_of_9bold') format('svg');
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Code3of9';
+	src: url('../font/code3of9.eot');
+	src: url('../font/code3of9.eot'),
+		url('../font/code3of9.woff') format('woff'),
+        	url('../font/code3of9.ttf') format('truetype'),
+        	url('../font/code3of9.svg#code_3_of_9regular') format('svg');
+	font-style: oblique;
+}
+
+@font-face {
+	font-family: 'Code3of9';
+	src: url('../font/code3of9-bold.eot');
+	src: url('../font/code3of9-bold.eot'),
+		url('../font/code3of9-bold.woff') format('woff'),
+        	url('../font/code3of9-bold.ttf') format('truetype'),
+        	url('../font/code3of9-bold.svg#code_3_of_9bold') format('svg');
+	font-weight: bold;
+	font-style: oblique;
+}
+
+.barcode {
+	font-family: 'Code3of9';
+	background-color: #fff;
+	color: #000;
+	line-height: 3em;
+	white-space: nowrap;
+}
+.barcode::before { content: '_('; }
+.barcode::after { content: ')_'; }
+
+.barcode.barcode-md { font-size: 150%; }
+.barcode.barcode-lg { font-size: 200%; }
+.barcode.barcode-box { outline: 0.15em solid #f00; padding-top: 0.1em; }
