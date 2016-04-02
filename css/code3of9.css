@@ -61,6 +61,7 @@
 	font-style: oblique;
 }
 
+.code39,
 .barcode {
 	font-family: 'Code3of9';
 	background-color: #fff;
@@ -71,6 +72,6 @@
 .barcode::before { content: '_('; }
 .barcode::after { content: ')_'; }
 
-.barcode.barcode-md { font-size: 150%; }
-.barcode.barcode-lg { font-size: 200%; }
-.barcode.barcode-box { outline: 0.15em solid #f00; padding-top: 0.1em; }
+.barcode.barcode-md, .code39.barcode-md { font-size: 150%; }
+.barcode.barcode-lg, .code39.barcode-lg { font-size: 200%; }
+.barcode.barcode-box, .code39.barcode-box { outline: 0.15em solid #f00; padding-top: 0.1em; }
