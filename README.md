@@ -43,7 +43,7 @@ How to use the fonts
 
 * The font is called _'Code 3 of 9'_ once installed.  Select the text you need to encode and apply that font.
 
-* Remember most bar codes have a leader and trailer (start annd stop) surrounding the data to encode.
+* Remember most bar codes have a leader and trailer (start and stop) surrounding the data to encode.
 With _3 of 9_ this is the ascii `*` _(asterisk)_ character.  So to encode _'1234'_ you will need to encode it as:
 
   `*1234*`
